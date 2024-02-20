@@ -18,14 +18,17 @@ export function Observer({ children, onContentEndVisible }: Props) {
       root: null,
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.intersectionRatio > 0) {
-          onContentEndVisible();
-          observer.disconnect();
-        }
-      });
-    }, options);
+    const observer: IntersectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry: IntersectionObserverEntry) => {
+          if (entry.intersectionRatio > 0) {
+            onContentEndVisible();
+            observer.disconnect();
+          }
+        });
+      },
+      options
+    );
 
     if (endContentRef.current) {
       observer.observe(endContentRef.current);
